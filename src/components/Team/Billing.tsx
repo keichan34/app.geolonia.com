@@ -19,19 +19,18 @@ import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
 
 // stripe integration
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 import customFetch from "../../lib/fetch";
 
-// const stripePromise = loadStripe(
-//   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
-// );
+const stripePromise = loadStripe(
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+);
 
 // connect with Stripe
 const StripeContainer = (props: { children: React.ReactNode }) => {
-  return <div>{props.children}</div>;
-  //   return <Elements stripe={stripePromise}>{props.children}</Elements>;
+  return <Elements stripe={stripePromise}>{props.children}</Elements>;
 };
 
 type StateProps = {
