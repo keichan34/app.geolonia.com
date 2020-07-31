@@ -237,6 +237,9 @@
       "Change payment method": ["支払い方法を変更"],
       "Current Plan": ["現在のプラン"],
       "Change Plan": ["プランを変更"],
+      "Learn more about plans on the pricing page.": [
+        "プラン詳細については、料金ページをご覧ください。"
+      ],
       "Payment history": ["支払履歴"],
       "Upload new picture": ["新しい写真をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [

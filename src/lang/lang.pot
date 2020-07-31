@@ -661,6 +661,10 @@ msgstr ""
 msgid "Change Plan"
 msgstr ""
 
+#: src/components/Team/Billing.tsx:217
+msgid "Learn more about plans on the pricing page."
+msgstr ""
+
 #: src/components/Team/Billing.tsx:222
 #: src/components/Team/payment-history.tsx:82
 msgid "Payment history"

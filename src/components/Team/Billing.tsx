@@ -214,7 +214,7 @@ const Billing = (props: StateProps) => {
       </div>
       <p style={{ textAlign: "right" }}>
         <a href="https://geolonia.com/pricing">
-          Learn more about plans on the pricing page.
+          {__("Learn more about plans on the pricing page.")}
         </a>
       </p>
 

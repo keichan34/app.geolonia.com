@@ -673,6 +673,10 @@ msgstr "現在のプラン"
 msgid "Change Plan"
 msgstr "プランを変更"
 
+#: src/components/Team/Billing.tsx:217
+msgid "Learn more about plans on the pricing page."
+msgstr "プラン詳細については、料金ページをご覧ください。"
+
 #: src/components/Team/Billing.tsx:222
 #: src/components/Team/payment-history.tsx:82
 msgid "Payment history"
