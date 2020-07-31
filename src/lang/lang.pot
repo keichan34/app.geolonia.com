@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:113
 #: src/components/Maps/APIKeys.tsx:35
-#: src/components/Team/Billing.tsx:128
+#: src/components/Team/Billing.tsx:127
 msgid "Home"
 msgstr ""
 
@@ -464,6 +464,10 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
+#: src/components/Navigator.tsx:166
+msgid "Billing"
+msgstr ""
+
 #: src/components/Navigator.tsx:174
 msgid "Documentation"
 msgstr ""
@@ -619,55 +623,56 @@ msgid ""
 "href=\"https://geolonia.com/privacy\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:106
+#: src/components/Team/Billing.tsx:105
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:132
+#: src/components/Team/Billing.tsx:131
 #: src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:141
+#: src/components/Team/Billing.tsx:140
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Team/Billing.tsx:146
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:153
+#: src/components/Team/Billing.tsx:152
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:157
+#: src/components/Team/Billing.tsx:156
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:167
+#: src/components/Team/Billing.tsx:166
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:176
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:188
+#: src/components/Team/Billing.tsx:187
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:223
-msgid "Paid invoice receipts"
+#: src/components/Team/Billing.tsx:222
+#: src/components/Team/payment-history.tsx:82
+msgid "Payment history"
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:123
-#: src/components/User/avatar.tsx:130
+#: src/components/User/avatar.tsx:128
 msgid "Upload new picture"
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:63
-#: src/components/User/avatar.tsx:76
+#: src/components/User/avatar.tsx:74
 msgid "Upload failed. The avatar image size cannot be larger than %d MB."
 msgstr ""
 
@@ -843,10 +848,6 @@ msgstr ""
 
 #: src/components/Team/payment-history.tsx:78
 msgid "Balance"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:82
-msgid "Payment history"
 msgstr ""
 
 #: src/components/Team/payment-history.tsx:88

@@ -219,7 +219,7 @@ const Billing = (props: StateProps) => {
       </p>
 
       <Typography component="h2" className="module-title">
-        {__("Paid invoice receipts")}
+        {__("Payment history")}
       </Typography>
       <Receipts />
     </StripeContainer>
