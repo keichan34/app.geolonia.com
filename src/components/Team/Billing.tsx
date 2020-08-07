@@ -10,8 +10,8 @@ import Button from "@material-ui/core/Button";
 // import Save from "../custom/Save";
 import Title from "../custom/Title";
 // import PaymentHistory from "./payment-history";
-import PaymentMethodModal from "./payment-method-modal";
-import PlanModal from "./plan-modal";
+import PaymentMethodModal from "./Billing/payment-method-modal";
+import PlanModal from "./Billing/plan-modal";
 import Receipts from "./Billing/Receipts";
 import "./Billing.scss";
 

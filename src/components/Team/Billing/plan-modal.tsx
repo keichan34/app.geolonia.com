@@ -3,9 +3,9 @@ import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { __ } from "@wordpress/i18n";
-import fetch from "../../lib/fetch";
+import fetch from "../../../lib/fetch";
 import { connect } from "react-redux";
-import { GeoloniaConstantPlan } from "./Billing";
+import { GeoloniaConstantPlan } from "../Billing";
 import {
   CircularProgress,
   RadioGroup,

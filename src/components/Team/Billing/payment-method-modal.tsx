@@ -8,7 +8,7 @@ import { CircularProgress } from "@material-ui/core";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 import { __ } from "@wordpress/i18n";
-import fetch from "../../lib/fetch";
+import fetch from "../../../lib/fetch";
 import { connect } from "react-redux";
 
 type OwnProps = {
