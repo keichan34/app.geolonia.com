@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Radio
 } from "@material-ui/core";
+import { parsePlanLabel } from "../Billing";
 
 type OwnProps = {
   open: boolean;
@@ -91,7 +92,7 @@ const PlanModal = (props: Props) => {
                     onChange={e => setPlanId(plan.planId)}
                   />
                 }
-                label={`${plan.name} ${plan.duration}ly`}
+                label={parsePlanLabel(plans, plan.planId)}
               />
               {/* <DialogContentText>
             <ul>

@@ -70,6 +70,34 @@ const isAppliancePlan = (plan: GeoloniaPlan): plan is GeoloniaAppliancePlan => {
   return plan.contactRequired === true;
 };
 
+type PossiblePlanId = string | null | undefined;
+
+export const parsePlanLabel = (
+  plans: GeoloniaPlan[],
+  planId: PossiblePlanId
+) => {
+  let currentPlanName = "";
+  let currentDuration: "" | Duration = "";
+  if (planId === null) {
+    currentPlanName = __("Free plan");
+  } else {
+    const currentPlan = plans
+      .filter(plan => !isAppliancePlan(plan))
+      .find(plan => (plan as GeoloniaConstantPlan).planId === planId);
+    if (currentPlan && currentPlan.name === "Pro") {
+      currentPlanName = __("Pro plan");
+      currentDuration = (currentPlan as GeoloniaConstantPlan).duration;
+    }
+  }
+
+  if (currentDuration === "month") {
+    currentPlanName += " " + __("monthly");
+  } else if (currentDuration === "year") {
+    currentPlanName += " " + __("yearly");
+  }
+  return currentPlanName;
+};
+
 const usePlan = (props: StateProps) => {
   const { session, teamId } = props;
   const [plans, setPlans] = React.useState<GeoloniaPlan[]>([]);
@@ -102,25 +130,7 @@ const usePlan = (props: StateProps) => {
     }
   }, [loaded, session, teamId]);
 
-  let currentPlanName = "";
-  let currentDuration: "" | Duration = "";
-  if (planId === null) {
-    currentPlanName = __("Free plan");
-  } else {
-    const currentPlan = plans
-      .filter(plan => !isAppliancePlan(plan))
-      .find(plan => (plan as GeoloniaConstantPlan).planId === planId);
-    if (currentPlan && currentPlan.name === "Pro") {
-      currentPlanName = __("Pro plan");
-      currentDuration = (currentPlan as GeoloniaConstantPlan).duration;
-    }
-  }
-
-  if (currentDuration === "month") {
-    currentPlanName += " " + __("monthly");
-  } else if (currentDuration === "year") {
-    currentPlanName += " " + __("yearly");
-  }
+  const currentPlanName = parsePlanLabel(plans, planId);
 
   return { plans, name: currentPlanName, planId };
 };
