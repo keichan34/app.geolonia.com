@@ -116,6 +116,7 @@ const PlanModal = (props: Props) => {
               handleSubmit();
             }}
             type={"button"}
+            disabled={planId === void 0 || currentPlanId === planId}
           >
             {loading && (
               <CircularProgress

@@ -119,7 +119,6 @@ const Billing = (props: StateProps) => {
   const [openPayment, setOpenPayment] = React.useState(false);
   const [openPlan, setOpenPlan] = React.useState(false);
   const { plans, name, planId } = usePlan(props);
-  console.error(plans);
   const breadcrumbItems = [
     {
       title: __("Home"),
