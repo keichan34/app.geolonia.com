@@ -107,10 +107,8 @@ const usePlan = (props: StateProps) => {
     const currentPlan = plans
       .filter(plan => !isAppliancePlan(plan))
       .find(plan => (plan as GeoloniaConstantPlan).planId === planId);
-    if (currentPlan) {
-      currentPlanName = `${currentPlan.name} ${
-        (currentPlan as GeoloniaConstantPlan).duration
-      }ly`;
+    if (currentPlan?.name === "Pro") {
+      currentPlanName = __("Pro plan");
     }
   }
 
@@ -121,7 +119,7 @@ const Billing = (props: StateProps) => {
   const [openPayment, setOpenPayment] = React.useState(false);
   const [openPlan, setOpenPlan] = React.useState(false);
   const { plans, name, planId } = usePlan(props);
-
+  console.error(plans);
   const breadcrumbItems = [
     {
       title: __("Home"),

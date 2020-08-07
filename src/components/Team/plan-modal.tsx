@@ -76,22 +76,24 @@ const PlanModal = (props: Props) => {
   return (
     <Modal open={open} onClose={handleClose}>
       <div style={modalStyle}>
-        <Typography component="h3">{__("Your plan")}</Typography>
-        {plans.map(plan => (
-          <RadioGroup key={plan.planId} name="plan">
-            <FormControlLabel
-              value={plan.planId}
-              control={
-                <Radio
-                  checked={
-                    plan.planId === (planId === void 0 ? currentPlanId : planId)
-                  }
-                  onChange={e => setPlanId(plan.planId)}
-                />
-              }
-              label={`${plan.name} ${plan.duration}ly`}
-            />
-            {/* <DialogContentText>
+        <Typography component="h2">{__("Your plan")}</Typography>
+        <div style={{ marginTop: "1em" }}>
+          {plans.map(plan => (
+            <RadioGroup key={plan.planId} name="plan">
+              <FormControlLabel
+                value={plan.planId}
+                control={
+                  <Radio
+                    checked={
+                      plan.planId ===
+                      (planId === void 0 ? currentPlanId : planId)
+                    }
+                    onChange={e => setPlanId(plan.planId)}
+                  />
+                }
+                label={`${plan.name} ${plan.duration}ly`}
+              />
+              {/* <DialogContentText>
             <ul>
               <li>{__("can invite another team member.")}</li>
               <li>{__("can designate another owner.")}</li>
@@ -103,28 +105,28 @@ const PlanModal = (props: Props) => {
               </li>
             </ul>
           </DialogContentText> */}
-          </RadioGroup>
-        ))}
-        <p>{message}</p>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={e => {
-            e.preventDefault();
-            handleSubmit();
-          }}
-          type={"button"}
-        >
-          {" "}
-          {loading && (
-            <CircularProgress
-              size={16}
-              style={{ marginRight: 8 }}
-              color={"inherit"}
-            />
-          )}
-          {__("Update")}
-        </Button>
+            </RadioGroup>
+          ))}
+          <p>{message}</p>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={e => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            type={"button"}
+          >
+            {loading && (
+              <CircularProgress
+                size={16}
+                style={{ marginRight: 8 }}
+                color={"inherit"}
+              />
+            )}
+            {__("Update")}
+          </Button>
+        </div>
       </div>
     </Modal>
   );
