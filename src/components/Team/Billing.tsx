@@ -47,7 +47,14 @@ type StripeTier = {
   up_to: null | number;
 };
 
-type Duration = "month" | "year";
+type Duration = "" | "month" | "year";
+
+export type GeoloniaFreePlan = {
+  planId: null;
+  name: string;
+  duration: Duration;
+  contactRequired: undefined;
+};
 
 export type GeoloniaConstantPlan = {
   planId: string;
@@ -55,7 +62,7 @@ export type GeoloniaConstantPlan = {
   price: number;
   duration: Duration;
   maxMemberLength: number;
-  contactRequired: undefined;
+  contactRequired: false;
 };
 
 type GeoloniaAppliancePlan = {
@@ -64,7 +71,10 @@ type GeoloniaAppliancePlan = {
   unitPrice: number;
 };
 
-type GeoloniaPlan = GeoloniaConstantPlan | GeoloniaAppliancePlan;
+type GeoloniaPlan =
+  | GeoloniaFreePlan
+  | GeoloniaConstantPlan
+  | GeoloniaAppliancePlan;
 
 const isAppliancePlan = (plan: GeoloniaPlan): plan is GeoloniaAppliancePlan => {
   return plan.contactRequired === true;
@@ -106,14 +116,21 @@ const usePlan = (props: StateProps) => {
   const [planId, setPlanId] = React.useState<string | null | undefined>(void 0);
   const [loaded, setLoaded] = React.useState(false);
 
+  const freePlan: GeoloniaFreePlan = {
+    planId: null,
+    name: __("Free Plan"),
+    duration: "month",
+    contactRequired: undefined
+  };
+
   // 全てのプランを取得
   React.useEffect(() => {
     fetch(`https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/plans`)
       .then(res => res.json())
       .then(data => {
-        setPlans(data);
+        setPlans([freePlan, ...data]);
       });
-  }, []);
+  }, [freePlan]);
 
   React.useEffect(() => {
     // 現在のプランを取得する
