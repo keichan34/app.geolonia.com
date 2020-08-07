@@ -47,11 +47,13 @@ type StripeTier = {
   up_to: null | number;
 };
 
+type Duration = "month" | "year";
+
 export type GeoloniaConstantPlan = {
   planId: string;
   name: string;
   price: number;
-  duration: "month" | "year";
+  duration: Duration;
   maxMemberLength: number;
   contactRequired: undefined;
 };
@@ -76,7 +78,7 @@ const usePlan = (props: StateProps) => {
   const [planId, setPlanId] = React.useState<string | null | undefined>(void 0);
   const [loaded, setLoaded] = React.useState(false);
 
-  // get plan list
+  // 全てのプランを取得
   React.useEffect(() => {
     fetch(`https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/plans`)
       .then(res => res.json())
@@ -101,15 +103,23 @@ const usePlan = (props: StateProps) => {
   }, [loaded, session, teamId]);
 
   let currentPlanName = "";
+  let currentDuration: "" | Duration = "";
   if (planId === null) {
     currentPlanName = __("Free plan");
   } else {
     const currentPlan = plans
       .filter(plan => !isAppliancePlan(plan))
       .find(plan => (plan as GeoloniaConstantPlan).planId === planId);
-    if (currentPlan?.name === "Pro") {
+    if (currentPlan && currentPlan.name === "Pro") {
       currentPlanName = __("Pro plan");
+      currentDuration = (currentPlan as GeoloniaConstantPlan).duration;
     }
+  }
+
+  if (currentDuration === "month") {
+    currentPlanName += " " + __("monthly");
+  } else if (currentDuration === "year") {
+    currentPlanName += " " + __("yearly");
   }
 
   return { plans, name: currentPlanName, planId };
@@ -119,6 +129,7 @@ const Billing = (props: StateProps) => {
   const [openPayment, setOpenPayment] = React.useState(false);
   const [openPlan, setOpenPlan] = React.useState(false);
   const { plans, name, planId } = usePlan(props);
+
   const breadcrumbItems = [
     {
       title: __("Home"),
