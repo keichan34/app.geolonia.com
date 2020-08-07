@@ -82,7 +82,7 @@ const PlanModal = (props: Props) => {
           {plans.map(plan => (
             <RadioGroup key={plan.planId} name="plan">
               <FormControlLabel
-                value={plan.planId}
+                value={plan.planId || "null"}
                 control={
                   <Radio
                     checked={

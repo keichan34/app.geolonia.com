@@ -120,7 +120,7 @@ const usePlan = (props: StateProps) => {
     planId: null,
     name: __("Free Plan"),
     duration: "month",
-    contactRequired: undefined
+    contactRequired: void 0
   };
 
   // 全てのプランを取得
