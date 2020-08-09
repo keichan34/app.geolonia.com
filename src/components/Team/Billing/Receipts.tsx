@@ -63,16 +63,21 @@ const useInvoices = (props: Props) => {
     }
   }, [session, teamId, loaded, invoices]);
 
-  return { invoices };
+  return { invoices, loaded };
 };
 
 function PaymentHistory(props: Props) {
-  const { invoices } = useInvoices(props);
+  const { invoices, loaded } = useInvoices(props);
   const formatter = (currency: string) =>
     new Intl.NumberFormat(props.language, {
       style: "currency",
       currency
     });
+
+  if (loaded && invoices.length === 0) {
+    return <p>{__("No payment history.")}</p>;
+  }
+
   // const currentBalance =
   //   invoices[0] && invoices[0].ending_balance !== null
   //     ? formatter(invoices[0].currency).format(

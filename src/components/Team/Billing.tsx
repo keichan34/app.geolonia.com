@@ -135,8 +135,6 @@ const usePlan = (props: StateProps) => {
   React.useEffect(() => setLoaded(false), [teamId]);
 
   React.useEffect(() => {
-    console.error({ teamId });
-
     // 現在のプランを取得する
     if (session && teamId && !loaded) {
       setLoaded(true);
