@@ -21,6 +21,12 @@ const useInvoices = (props: Props) => {
   const [loaded, setLoaded] = React.useState(false);
   const [invoices, setInvoices] = React.useState<Geolonia.Invoice[]>([]);
 
+  // チーム変えたらロード状態をリセット
+  React.useEffect(() => {
+    setLoaded(false);
+    setInvoices([]);
+  }, [teamId]);
+
   React.useEffect(() => {
     if (loaded) {
       return;
@@ -39,11 +45,14 @@ const useInvoices = (props: Props) => {
           if (res.status < 400) {
             return res.json();
           } else {
-            throw new Error();
+            console.error(res);
+            // throw new Error();
           }
         })
-        .then(({ data }) => {
-          setInvoices(data);
+        .then(result => {
+          if (result) {
+            setInvoices(result.data);
+          }
         })
         .catch(error => {
           console.error(error);

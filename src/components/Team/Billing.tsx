@@ -116,23 +116,27 @@ const usePlan = (props: StateProps) => {
   const [planId, setPlanId] = React.useState<string | null | undefined>(void 0);
   const [loaded, setLoaded] = React.useState(false);
 
-  const freePlan: GeoloniaFreePlan = {
-    planId: null,
-    name: __("Free Plan"),
-    duration: "month",
-    contactRequired: void 0
-  };
-
   // 全てのプランを取得
   React.useEffect(() => {
+    const freePlan: GeoloniaFreePlan = {
+      planId: null,
+      name: __("Free Plan"),
+      duration: "month",
+      contactRequired: void 0
+    };
     fetch(`https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/plans`)
       .then(res => res.json())
       .then(data => {
         setPlans([freePlan, ...data]);
       });
-  }, [freePlan]);
+  }, []);
+
+  // チーム変えたらロード状態をリセット
+  React.useEffect(() => setLoaded(false), [teamId]);
 
   React.useEffect(() => {
+    console.error({ teamId });
+
     // 現在のプランを取得する
     if (session && teamId && !loaded) {
       setLoaded(true);
