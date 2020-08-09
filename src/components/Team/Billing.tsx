@@ -132,7 +132,10 @@ const usePlan = (props: StateProps) => {
   }, []);
 
   // チーム変えたらロード状態をリセット
-  React.useEffect(() => setLoaded(false), [teamId]);
+  React.useEffect(() => {
+    setLoaded(false);
+    setPlanId(undefined);
+  }, [teamId]);
 
   React.useEffect(() => {
     // 現在のプランを取得する
@@ -177,65 +180,65 @@ const Billing = (props: StateProps) => {
           {__("You can see subscriptions for this team in this month.")}
         </Title>
 
-        {props.isOwner && (
-          <>
-            <Typography component="h2" className="module-title">
-              {__("Payment information")}
-            </Typography>
-            <Table className="payment-info">
-              <TableBody>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    {__("Payment method:")}
-                  </TableCell>
-                  <TableCell>
-                    {props.last2
-                      ? sprintf(__("ending in **%1$s"), props.last2)
-                      : ""}
-                  </TableCell>
-                  <TableCell align="right">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => setOpenPayment(true)}
-                      type={"button"}
-                    >
-                      {__("Change payment method")}
-                    </Button>
-                    <PaymentMethodModal
-                      open={openPayment}
-                      handleClose={() => setOpenPayment(false)}
-                    />
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    {__("Current Plan")}
-                  </TableCell>
-                  <TableCell>{name}</TableCell>
-                  <TableCell align="right">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => setOpenPlan(true)}
-                      type={"button"}
-                      disabled={!props.last2}
-                    >
-                      {__("Change Plan")}
-                    </Button>
-                    <PlanModal
-                      open={openPlan}
-                      handleClose={() => setOpenPlan(false)}
-                      plans={
-                        plans.filter(
-                          plan => !isAppliancePlan(plan)
-                        ) as GeoloniaConstantPlan[]
-                      }
-                      currentPlanId={planId}
-                    />
-                  </TableCell>
-                </TableRow>
-                {/* <TableRow>
+        <Typography component="h2" className="module-title">
+          {__("Payment information")}
+        </Typography>
+        <Table className="payment-info">
+          <TableBody>
+            {props.isOwner && (
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  {__("Payment method:")}
+                </TableCell>
+                <TableCell>
+                  {props.last2
+                    ? sprintf(__("ending in **%1$s"), props.last2)
+                    : ""}
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOpenPayment(true)}
+                    type={"button"}
+                  >
+                    {__("Change payment method")}
+                  </Button>
+                  <PaymentMethodModal
+                    open={openPayment}
+                    handleClose={() => setOpenPayment(false)}
+                  />
+                </TableCell>
+              </TableRow>
+            )}
+            <TableRow>
+              <TableCell component="th" scope="row">
+                {__("Current Plan")}
+              </TableCell>
+              <TableCell>{name}</TableCell>
+              <TableCell align="right">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setOpenPlan(true)}
+                  type={"button"}
+                  disabled={!props.last2 || !props.isOwner}
+                >
+                  {__("Change Plan")}
+                </Button>
+                <PlanModal
+                  open={openPlan}
+                  handleClose={() => setOpenPlan(false)}
+                  plans={
+                    plans.filter(
+                      plan => !isAppliancePlan(plan)
+                    ) as GeoloniaConstantPlan[]
+                  }
+                  currentPlanId={planId}
+                />
+              </TableCell>
+            </TableRow>
+            {/* <TableRow>
                   <TableCell component="th" scope="row">
                     {__("Coupon:")}
                   </TableCell>
@@ -244,10 +247,8 @@ const Billing = (props: StateProps) => {
                     <Save label={__("Redeem a coupon")} />
                   </TableCell>
                 </TableRow> */}
-              </TableBody>
-            </Table>
-          </>
-        )}
+          </TableBody>
+        </Table>
       </div>
       <p style={{ textAlign: "right" }}>
         <a href="https://geolonia.com/pricing">
@@ -255,10 +256,14 @@ const Billing = (props: StateProps) => {
         </a>
       </p>
 
-      <Typography component="h2" className="module-title">
-        {__("Payment history")}
-      </Typography>
-      <Receipts />
+      {props.isOwner && (
+        <>
+          <Typography component="h2" className="module-title">
+            {__("Payment history")}
+          </Typography>
+          <Receipts />
+        </>
+      )}
     </StripeContainer>
   );
 };
