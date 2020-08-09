@@ -84,7 +84,6 @@ function PaymentHistory(props: Props) {
   //         -invoices[0].ending_balance / 100
   //       )
   //     : "-";
-
   return (
     <Table className="payment-info">
       <TableBody>
@@ -93,48 +92,49 @@ function PaymentHistory(props: Props) {
             {__("Date")}
           </TableCell>
           <TableCell component="th" scope="column">
-            {`${__("Payment")} (${__("Balanced")})`}
-          </TableCell>
-          <TableCell component="th" scope="column">
-            {__("Refund")}
+            {__("Payment")}
           </TableCell>
         </TableRow>
-        {invoices.map(invoice => {
-          const {
-            total,
-            currency,
-            period_start,
-            ending_balance,
-            starting_balance,
-            id
-          } = invoice;
+        {invoices
+          .map(invoice => {
+            const {
+              total,
+              currency,
+              period_start,
+              ending_balance,
+              starting_balance,
+              id
+            } = invoice;
 
-          const formattedTotal = new Intl.NumberFormat(props.language, {
-            style: "currency",
-            currency
-          }).format(Math.abs(total) / 100);
+            // const formattedTotal = new Intl.NumberFormat(props.language, {
+            //   style: "currency",
+            //   currency
+            // }).format(Math.abs(total) / 100);
+            const value =
+              (total - (ending_balance || 0) + starting_balance) / 100;
+            const formattedActualPayment = formatter(currency).format(value);
+            // const formattedBalanced = formatter(currency).format(
+            //   ((ending_balance || 0) - starting_balance) / 100
+            // );
 
-          const formattedActualPayment = formatter(currency).format(
-            (total - (ending_balance || 0) + starting_balance) / 100
-          );
-          const formattedBalanced = formatter(currency).format(
-            ((ending_balance || 0) - starting_balance) / 100
-          );
-
-          return (
-            <TableRow key={id}>
-              <TableCell>
-                {moment(period_start * 1000).format("YYYY-MM-DD HH:mm:ss")}
-              </TableCell>
-              <TableCell>
-                {total > 0
-                  ? `${formattedActualPayment}(${formattedBalanced})`
-                  : "-"}
-              </TableCell>
-              <TableCell>{total < 0 ? formattedTotal : "-"}</TableCell>
-            </TableRow>
-          );
-        })}
+            return {
+              date: moment(period_start * 1000).format("YYYY-MM-DD"),
+              total,
+              payment: formattedActualPayment,
+              id,
+              value
+            };
+          })
+          .filter(data => data.total > 0 && data.value > 0)
+          .map(data => {
+            const { id, date, payment } = data;
+            return (
+              <TableRow key={id}>
+                <TableCell>{date}</TableCell>
+                <TableCell>{payment}</TableCell>
+              </TableRow>
+            );
+          })}
       </TableBody>
     </Table>
   );
