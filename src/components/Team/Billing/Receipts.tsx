@@ -5,7 +5,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import IconDownload from "@material-ui/icons/CloudDownload";
+import IconLaunch from "@material-ui/icons/Launch";
 import moment from "moment";
 import { __ } from "@wordpress/i18n";
 
@@ -142,8 +142,12 @@ function PaymentHistory(props: Props) {
                 <TableCell>{payment}</TableCell>
                 <TableCell>
                   {receipt_url && (
-                    <a href={receipt_url}>
-                      <IconDownload></IconDownload>
+                    <a
+                      href={receipt_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <IconLaunch />
                     </a>
                   )}
                 </TableCell>
