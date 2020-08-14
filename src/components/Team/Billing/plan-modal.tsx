@@ -14,11 +14,13 @@ import {
 } from "@material-ui/core";
 import { parsePlanLabel } from "../Billing";
 
+type PlanId = string | null | undefined;
+
 type OwnProps = {
   open: boolean;
   handleClose: () => void;
   plans: GeoloniaConstantPlan[];
-  currentPlanId: string | null | undefined;
+  currentPlanId: PlanId;
 };
 type StateProps = {
   session: Geolonia.Session;
@@ -38,11 +40,33 @@ const modalStyle: React.CSSProperties = {
 
 const { REACT_APP_STAGE } = process.env;
 
+const useMessage = (
+  currentPlanId: PlanId,
+  nextPlanId: PlanId
+): string | undefined => {
+  if (
+    currentPlanId === undefined ||
+    nextPlanId === undefined ||
+    currentPlanId === nextPlanId ||
+    currentPlanId === null
+  ) {
+    return undefined;
+  } else if (nextPlanId === null) {
+    return __("Your subscription will be canceled.");
+  } else if (nextPlanId !== null) {
+    return __(
+      "The difference between the plan changes will be charged or charged as a balance."
+    );
+  } else {
+    return undefined;
+  }
+};
+
 const PlanModal = (props: Props) => {
   const { open, handleClose, session, teamId, plans, currentPlanId } = props;
   const [loading, setLoading] = React.useState(false);
-  const [message] = React.useState("");
-  const [planId, setPlanId] = React.useState<string | null | undefined>(void 0);
+  const [planId, setPlanId] = React.useState<PlanId>(void 0);
+  const message = useMessage(currentPlanId, planId);
 
   const handleSubmit = async () => {
     if (!teamId) {
@@ -108,7 +132,6 @@ const PlanModal = (props: Props) => {
           </DialogContentText> */}
             </RadioGroup>
           ))}
-          <p>{message}</p>
           <Button
             variant="contained"
             color="primary"
@@ -128,6 +151,7 @@ const PlanModal = (props: Props) => {
             )}
             {__("Update")}
           </Button>
+          <p>{message}</p>
         </div>
       </div>
     </Modal>

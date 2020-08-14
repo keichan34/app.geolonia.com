@@ -246,14 +246,16 @@
       "Free plan": ["Free プラン"],
       "Pro plan": ["Pro プラン"],
       "No payment history.": ["支払い履歴はありません。"],
-      "Date": ["日時"],
-      "Payment": ["支払い"],
-      "Balanced": ["差し引き"],
-      "Refund": ["返金"],
       "Card information": ["クレジットカード情報"],
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],
       "Your plan": ["あなたのプラン"],
+      "Your subscription will be canceled.": [
+        "サブスクリプションはキャンセルされます。"
+      ],
+      "The difference between the plan changes will be charged or charged as a balance.": [
+        "プランの変更に伴う差額が請求または残高としてチャージされます。"
+      ],
       "Upload new picture": ["新しい写真をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
